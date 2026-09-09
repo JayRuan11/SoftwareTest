@@ -1,0 +1,66 @@
+# Test Configuration for OVI Fusion Model
+
+# Model and checkpoint paths
+ckpt_dir: ./ckpts
+output_dir: ./test_outputs
+model_name: "960x960_5s" # ["720x720_5s", "960x960_5s", "960x960_10s"]
+
+# LoRA configuration
+lora_path: null  # Path to LoRA checkpoint to load (e.g., "./outputs/checkpoints/lora_weights.safetensors")
+lora_alpha: 1.0
+use_ema: true  # Use EMA weights from checkpoint if available (recommended for better quality)
+
+# Test mode: t2v (text-to-video), i2v (image-to-video), t2i2v (text+image-to-video)
+mode: i2v
+
+# Input configuration
+text_prompt: null  # Required for t2v and t2i2v modes
+image_path: null  # Required for i2v and t2i2v modes
+prompts_file: example_prompts/test_i2v.csv  # Optional: CSV file with multiple prompts (columns: text_prompt, image_path)
+
+# Video generation parameters
+num_frames: 81
+video_frame_height_width: [960, 960] # only useful if mode = t2v or t2i2v, recommended values: [704, 1280], [1280, 704], [960, 960], [512, 992], [992, 512], [960, 512], [512, 960], [720, 720], [448, 1120]
+fps: 24
+sample_rate: 16000
+
+# Generation settings
+seed: 42
+each_example_n_times: 1  # Number of samples to generate per prompt
+solver_name: unipc  # [unipc, euler]
+sample_steps: 50
+shift: 5.0
+
+# Guidance scales
+video_guidance_scale: 4.0
+audio_guidance_scale: 3.0
+video_negative_prompt: "jitter, bad hands, blur, distortion"
+audio_negative_prompt: "robotic, muffled, echo, distorted"
+
+# SLG (Semantic Layer Guidance) settings
+slg_layer: 11
+
+# Distributed inference settings
+sp_size: 1  # Sequence parallel size (must divide world_size evenly)
+
+# Output settings
+save_video: true
+save_audio: true
+save_image: false  # Save first frame for i2v mode
+output_format: mp4  # [mp4, avi]
+
+# Batch processing
+batch_size: 1  # Number of prompts to process in parallel per GPU
+
+# Model precision
+dtype: bf16  # [fp32, fp16, bf16]
+fp8: False
+cpu_offload: False
+
+# Device settings
+device: cuda
+num_workers: 4
+
+# Logging
+log_level: INFO  # [DEBUG, INFO, WARNING, ERROR]
+verbose: true

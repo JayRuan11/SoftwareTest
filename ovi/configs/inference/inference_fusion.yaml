@@ -1,0 +1,31 @@
+model_path: outputs/run_20260507_11/last.ckpt/checkpoint/mp_rank_00_model_states.pt
+lora_path: outputs/run_20260507_11/last.ckpt/checkpoint/mp_rank_00_model_states.pt
+# lora_alpha: 1
+ckpt_dir: ./ckpts
+sample_steps: 50
+solver_name: unipc
+model_name: "960x960_5s" # ["720x720_5s", "960x960_5s", "960x960_10s"]
+shift: 5.0
+sp_size: 1
+audio_guidance_scale: 3.0
+video_guidance_scale: 4.0
+mode: "i2v" # ["t2v", "i2v", "t2i2v"] all comes with audio
+fp8: False
+cpu_offload: False
+seed: 42
+video_negative_prompt: "jitter, bad hands, blur, distortion"  # Artifacts to avoid in video
+audio_negative_prompt: "robotic, muffled, echo, distorted"    # Artifacts to avoid in audio
+video_frame_height_width: [704, 1280] # only useful if mode = t2v or t2i2v, recommended values: [704, 1280], [1280, 704], [960, 960], [512, 992], [992, 512], [960, 512], [512, 960], [720, 720], [448, 1120]
+
+# text_prompt: dataset/inference/train/train.csv
+# output_dir: outputs/run_20251229_21/train
+# text_prompt: /mnt/vision-gen-ks3/Video_Generation/ruanjunjie/ovi_test/dataset/text.csv
+# output_dir: outputs/text
+
+text_prompt: /mnt/vision-gen-ks3/Video_Generation/ruanjunjie/ovi_add/dataset/timenre_test.csv
+output_dir: /mnt/vision-gen-ks3/Video_Generation/ruanjunjie/ovi_add/outputs/run_20260507_11/timenre_test
+# text_prompt: /mnt/vision-gen-ks3/Video_Generation/ruanjunjie/ovi_attn/dataset/inference/test/test.csv
+# output_dir: outputs/run_20260102_14/test1
+
+slg_layer: 11
+each_example_n_times: 1
