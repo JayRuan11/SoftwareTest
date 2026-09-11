@@ -4,3 +4,5 @@ test_output*/
 dataset/
 ckpts
 *.pyc
+.pytest_tmp/
+.coverage
